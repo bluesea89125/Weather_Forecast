@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Box, Select, MenuItem, Container, Grid, Link, SvgIcon, Typography } from '@mui/material';
 import WeeklyForecast from './components/WeeklyForecast/WeeklyForecast';
 import TodayWeather from './components/TodayWeather/TodayWeather';
-import { fetchWeatherData } from './api/OpenWeatherService';
 import { transformDateFormat } from './utilities/DatetimeUtils';
 import UTCDatetime from './components/Reusable/UTCDatetime';
 import LoadingBox from './components/Reusable/LoadingBox';
@@ -11,7 +10,6 @@ import Logo from './assets/logo.png';
 import ErrorBox from './components/Reusable/ErrorBox';
 import { ALL_DESCRIPTIONS } from './utilities/DateConstants';
 import GitHubIcon from '@mui/icons-material/GitHub';
-import { fetchCities } from './api/OpenWeatherService';
 
 import {
   getTodayForecastWeather,
@@ -60,7 +58,6 @@ function App() {
         }
       );
       const todayWeatherResponse = await today_response.json();
-      console.log("today : ", todayWeatherResponse);
 
       const forecast_response = await fetch(
         `http://localhost:3001/getWeatherInfo/forecast?lat=${latitude}&lon=${longitude}`,
@@ -74,7 +71,6 @@ function App() {
       );
 
       const weekForecastResponse = await forecast_response.json();
-      console.log("forecast : ", weekForecastResponse);
       
       const all_today_forecasts_list = getTodayForecastWeather(
         weekForecastResponse,

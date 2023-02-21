@@ -20,9 +20,6 @@ app.get('/getWeatherInfo/today/', async (req, resp) => {
     try {
         result = await axios.get(URL + "weather?lat=" + lat + "&lon=" + lon + "&appid=" + API_KEY + "&units=metric");
         resp.json(result.data);
-        // console.log("weather = ", result);
-        // result = await axios.get(URL + "onecall?lat=" + lat + "&lon=" + lon + "&appid=" + API_KEY + "&units=metric");
-        // resp.json(result.data);
     } catch (err) {
         console.error(`failed all api due to ${err.message}`);
     }
