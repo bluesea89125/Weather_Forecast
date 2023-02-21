@@ -44,22 +44,21 @@ export const getWeekForecastWeather = (response, descriptions_list) => {
   if (!response || Object.keys(response).length === 0 || response.cod === '404')
     return [];
   else
-    response?.list.slice().map((item, idx) => {
+    response?.forecast.forecastday.slice().map((item, idx) => {
       descriptions_data.push({
-        description: item.weather[0].description,
-        date: item.dt_txt.substring(0, 10),
+        description: item.day.condition.text,
+        date: item.date
       });
       foreacast_data.push({
-        date: item.dt_txt.substring(0, 10),
-        temp: item.main.temp,
-        humidity: item.main.humidity,
-        wind: item.wind.speed,
-        clouds: item.clouds.all,
+        date: item.date,
+        temp: item.day.maxtemp_c,
+        humidity: item.day.avghumidity,
+        wind: item.day.maxwind_mph,
+        clouds: item.hour[0].cloud,
       });
-
       return { idx, item };
     });
-
+  
   const groupByDate = groupBy('date');
   let grouped_forecast_data = groupByDate(foreacast_data);
   let grouped_forecast_descriptions = groupByDate(descriptions_data);
@@ -75,31 +74,18 @@ export const getWeekForecastWeather = (response, descriptions_list) => {
     let mostFrequentDescription = getMostFrequentWeather(singleDayDescriptions);
     dayDescList.push(mostFrequentDescription);
   });
-
+  
   const forecast_keys = Object.keys(grouped_forecast_data);
   let dayAvgsList = [];
 
   forecast_keys.forEach((key, idx) => {
-    let dayTempsList = [];
-    let dayHumidityList = [];
-    let dayWindList = [];
-    let dayCloudsList = [];
-
-    for (let i = 0; i < grouped_forecast_data[key].length; i++) {
-      dayTempsList.push(grouped_forecast_data[key][i].temp);
-      dayHumidityList.push(grouped_forecast_data[key][i].humidity);
-      dayWindList.push(grouped_forecast_data[key][i].wind);
-      dayCloudsList.push(grouped_forecast_data[key][i].clouds);
-    }
-
     dayAvgsList.push({
       date: key,
-      temp: getAverage(dayTempsList),
-      humidity: getAverage(dayHumidityList),
-      wind: getAverage(dayWindList, false),
-      clouds: getAverage(dayCloudsList),
+      temp: grouped_forecast_data[key][0].temp,
+      humidity: grouped_forecast_data[key][0].humidity,
+      wind: grouped_forecast_data[key][0].wind,
+      clouds: grouped_forecast_data[key][0].clouds,
       description: dayDescList[idx],
-      icon: descriptionToIconName(dayDescList[idx], descriptions_list),
     });
   });
 

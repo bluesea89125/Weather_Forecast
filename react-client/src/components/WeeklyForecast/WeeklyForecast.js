@@ -88,7 +88,7 @@ const WeeklyForecast = ({ data }) => {
               >
                 <WeeklyForecastItem
                   type="wind"
-                  value={item.wind + ' m/s'}
+                  value={item.wind + ' km/h'}
                   color="green"
                 />
                 <WeeklyForecastItem
@@ -127,7 +127,7 @@ const WeeklyForecast = ({ data }) => {
 
   return (
     <Layout
-      title="WEEKLY FORECAST"
+      title="14 DAYS FORECAST"
       content={content}
       mb=".8rem"
       sx={{

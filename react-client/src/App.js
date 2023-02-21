@@ -42,7 +42,7 @@ function App() {
     setIsLoading(true);
 
     const currentDate = transformDateFormat();
-    const date= new Date();
+    const date = new Date();
     let dt_now = Math.floor(date.getTime() / 1000);
 
     try {
@@ -70,7 +70,20 @@ function App() {
       );
 
       const weekForecastResponse = await forecast_response.json();
-      
+
+      const two_weeks_forecasts_response = await fetch(
+        `http://localhost:3001/getWeatherInfo/forecast_two_weeks?lat=${latitude}&lon=${longitude}`,
+        {
+          method: "GET",
+          headers: new Headers({
+            'Accept': 'application/json',
+            'Content-Type': 'application/json;charset=utf-8'
+          })
+        }
+      );
+
+      const twoWeeksForecastResponse = await two_weeks_forecasts_response.json();
+
       const all_today_forecasts_list = getTodayForecastWeather(
         weekForecastResponse,
         currentDate,
@@ -78,7 +91,7 @@ function App() {
       );
 
       const all_week_forecasts_list = getWeekForecastWeather(
-        weekForecastResponse,
+        twoWeeksForecastResponse,
         ALL_DESCRIPTIONS
       );
 

@@ -36,7 +36,7 @@ const DayWeatherDetails = (props) => {
           height: '31px',
         }}
       >
-        <Box
+        {/* <Box
           component="img"
           sx={{
             width: { xs: '24px', sm: '28px', md: '31px' },
@@ -45,7 +45,7 @@ const DayWeatherDetails = (props) => {
           }}
           alt="weather"
           src={props.src}
-        />
+        /> */}
         <Typography
           variant="h4"
           component="h4"

@@ -4,8 +4,10 @@ const app = express();
 const port = 3001;
 
 const API_KEY = "d37f78971b1063ccf34a287df290899e";
+const OTHER_API_KEY = "9a48117cfc644429b6f170533232102 ";
 
 const URL = "https://api.openweathermap.org/data/2.5/";
+const OTHER_URL = "http://api.weatherapi.com/v1/";
 
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -30,7 +32,7 @@ app.get('/getWeatherInfo/forecast/', async (req, resp) => {
     const lon = req.query.lon;
     let result;
     try {
-        result = await axios.get(URL + "forecast?lat=" + lat + "&lon=" + lon + "&appid=" + API_KEY + "&units=metric");
+        result = await axios.get(URL + "forecast?lat=" + lat + "&lon=" + lon + "&appid=" + API_KEY + "&cnt=14" + "&units=metric");
         resp.json(result.data);
     } catch (err) {
         console.error(`failed all api due to ${err.message}`);
@@ -46,7 +48,18 @@ app.get('/getWeatherInfo/city/', async (req, resp) => {
     } catch (err) {
         console.error(`failed city api due to ${err.message}`);
     }
-    
+});
+
+app.get('/getWeatherInfo/forecast_two_weeks/', async (req, resp) => {
+    const lat = req.query.lat;
+    const lon = req.query.lon;
+    let result;
+    try {
+        result = await axios.get(OTHER_URL + "forecast.json?q=" + lat + "," + lon + "&key=" + OTHER_API_KEY + "&days=14" + "&units=metric");
+        resp.json(result.data);
+    } catch (err) {
+        console.error(`failed all api due to ${err.message}`);
+    }
 });
 
 app.listen(port, () => {
