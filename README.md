@@ -26,7 +26,7 @@ git clone https://github.com/bluesea89125/Weather_Forecast.git
 
 - `react-js`
 - `material-ui`
-
+1
 Check `packages.json` for details
 
 # run the node server using below command: 
@@ -40,8 +40,4 @@ Check `packages.json` for details
 `npm start`
 
 <br/>
-<<<<<<< HEAD
-Thank You ^~^
-=======
-Thank You ^~^
->>>>>>> 145e100a195e15b86c92fa3ce82d1b5be41c268d
+Thank You ^_^
