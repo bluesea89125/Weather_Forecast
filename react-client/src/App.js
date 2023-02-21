@@ -42,7 +42,7 @@ function App() {
     setIsLoading(true);
 
     const currentDate = transformDateFormat();
-    const date = new Date();
+    const date= new Date();
     let dt_now = Math.floor(date.getTime() / 1000);
 
     try {
