@@ -16,7 +16,7 @@ import {
 } from './utilities/DataUtils';
 
 function App() {
-  const [city, setCity] = useState("Reno, US");
+  const [city, setCity] = useState("");
   const [todayWeather, setTodayWeather] = useState(null);
   const [todayForecast, setTodayForecast] = useState([]);
   const [weekForecast, setWeekForecast] = useState(null);
