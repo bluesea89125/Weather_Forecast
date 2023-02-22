@@ -14,22 +14,22 @@ const TodayWeatherAirConditions = ({ data }) => {
       <>
         <AirConditionsItem
           title="Real Feel"
-          value={`${Math.round(data.main.feels_like)} °C`}
+          value={`${Math.round(data.feelslike_c)} °C`}
           type="temperature"
         />
         <AirConditionsItem
           title="Wind"
-          value={`${data.wind.speed} m/s`}
+          value={`${data.wind_kph} km/h`}
           type="wind"
         />
         <AirConditionsItem
           title="Clouds"
-          value={`${Math.round(data.clouds.all)} %`}
+          value={`${Math.round(data.cloud)} %`}
           type="clouds"
         />
         <AirConditionsItem
           title="Humidity"
-          value={`${Math.round(data.main.humidity)} %`}
+          value={`${Math.round(data.humidity)} %`}
           type="humidity"
         />
       </>

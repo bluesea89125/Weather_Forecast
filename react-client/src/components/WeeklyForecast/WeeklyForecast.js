@@ -52,7 +52,7 @@ const WeeklyForecast = ({ data }) => {
             >
               <DayWeatherDetails
                 day={forecastDays[idx]}
-                src={weatherIcon(`${item.icon}`)}
+                src={item.icon}
                 description={item.description}
               />
 

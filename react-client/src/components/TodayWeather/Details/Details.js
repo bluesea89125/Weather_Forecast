@@ -36,8 +36,8 @@ const Details = ({ data }) => {
           }}
         >
           <TemperatureWeatherDetail
-            temperature={data.main.temp}
-            description={data.weather[0].description}
+            temperature={data.temp_c}
+            description={data.condition.text}
           />
         </Grid>
         <Grid
@@ -50,7 +50,7 @@ const Details = ({ data }) => {
             height: '80px',
           }}
         >
-          <WeatherIconDetail src={weatherIcon(`${data.weather[0].icon}.png`)} />
+          <WeatherIconDetail src={data.condition.icon} />
         </Grid>
       </>
     );

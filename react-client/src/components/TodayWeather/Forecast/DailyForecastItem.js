@@ -50,7 +50,7 @@ const DailyForecastItem = (props) => {
             margin: '0 auto',
           }}
           alt="weather"
-          src={weatherIcon(`${props.data.weather[0].icon}.png`)}
+          src={props.data.condition.icon}
         />
       </Box>
       <Typography

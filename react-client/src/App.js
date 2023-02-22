@@ -25,41 +25,10 @@ function App() {
 
   const handleChange = async (event) => {
     setCity(event.target.value);
-    const response = await fetch(
-      `http://localhost:3001/getWeatherInfo/city?city=${event.target.value}`,
-      {
-        method: "GET",
-        headers: new Headers({
-          'Accept': 'application/json',
-          'Content-Type': 'application/json;charset=utf-8'
-        })
-      }
-    );
-    const postData = await response.json();
-    const longitude = postData.coord.lon;
-    const latitude = postData.coord.lat;
-
     setIsLoading(true);
-
-    const currentDate = transformDateFormat();
-    const date = new Date();
-    let dt_now = Math.floor(date.getTime() / 1000);
-
     try {
-      const today_response = await fetch(
-        `http://localhost:3001/getWeatherInfo/today?lat=${latitude}&lon=${longitude}`,
-        {
-          method: "GET",
-          headers: new Headers({
-            'Accept': 'application/json',
-            'Content-Type': 'application/json;charset=utf-8'
-          })
-        }
-      );
-      const todayWeatherResponse = await today_response.json();
-
-      const forecast_response = await fetch(
-        `http://localhost:3001/getWeatherInfo/forecast?lat=${latitude}&lon=${longitude}`,
+      const response = await fetch(
+        `http://localhost:3001/getWeatherInfo/city?city=${event.target.value}`,
         {
           method: "GET",
           headers: new Headers({
@@ -69,42 +38,37 @@ function App() {
         }
       );
 
-      const weekForecastResponse = await forecast_response.json();
+      const weatherData = await response.json();
 
-      const two_weeks_forecasts_response = await fetch(
-        `http://localhost:3001/getWeatherInfo/forecast_two_weeks?lat=${latitude}&lon=${longitude}`,
-        {
-          method: "GET",
-          headers: new Headers({
-            'Accept': 'application/json',
-            'Content-Type': 'application/json;charset=utf-8'
-          })
-        }
-      );
+      const currentDate = transformDateFormat();
+      const date = new Date();
+      let dt_now = Math.floor(date.getTime() / 1000);
 
-      const twoWeeksForecastResponse = await two_weeks_forecasts_response.json();
+      const todayWeatherData = weatherData.current;
+      const todayForecastWeatherData = weatherData.forecast.forecastday[0].hour;
+      const twoWeeksForecastWeatherData = weatherData.forecast.forecastday;
+      console.log(twoWeeksForecastWeatherData)
 
       const all_today_forecasts_list = getTodayForecastWeather(
-        weekForecastResponse,
+        todayForecastWeatherData,
         currentDate,
         dt_now
       );
 
       const all_week_forecasts_list = getWeekForecastWeather(
-        twoWeeksForecastResponse,
+        twoWeeksForecastWeatherData,
         ALL_DESCRIPTIONS
       );
 
       setTodayForecast([...all_today_forecasts_list]);
-      setTodayWeather({ city: event.target.value, ...todayWeatherResponse });
+      setTodayWeather({ city: event.target.value, ...todayWeatherData });
       setWeekForecast({
         city: event.target.value,
         list: all_week_forecasts_list,
       });
-    } catch (error) {
+     } catch (error) {
       setError(true);
     }
-
     setIsLoading(false);
   };
 
@@ -138,8 +102,7 @@ function App() {
           lineHeight: '22px',
         }}
       >
-        Explore current weather data and 6-day forecast of more than 200,000
-        cities!
+        Explore current weather data and two weeks forecast of several cities.
       </Typography>
     </Box>
   );
