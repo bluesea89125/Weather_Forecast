@@ -47,7 +47,6 @@ function App() {
       const todayWeatherData = weatherData.current;
       const todayForecastWeatherData = weatherData.forecast.forecastday[0].hour;
       const twoWeeksForecastWeatherData = weatherData.forecast.forecastday;
-      console.log(twoWeeksForecastWeatherData)
 
       const all_today_forecasts_list = getTodayForecastWeather(
         todayForecastWeatherData,

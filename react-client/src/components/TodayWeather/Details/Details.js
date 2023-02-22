@@ -1,7 +1,6 @@
 import React from 'react';
 import { Grid } from '@mui/material';
 import { getDayMonthFromDate } from '../../../utilities/DatetimeUtils';
-import { weatherIcon } from '../../../utilities/IconsUtils';
 import ErrorBox from '../../Reusable/ErrorBox';
 import CityDateDetail from './CityDateDetail';
 import TemperatureWeatherDetail from './TemperatureWeatherDetail';
